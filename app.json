@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "redux-example",
+    "slug": "redux-example",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
