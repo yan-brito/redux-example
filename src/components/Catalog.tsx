@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import api from '../services/api';
+import { emptyCart } from '../store/modules/cart/actions';
 import { IProduct } from '../store/modules/cart/types';
 import { CatalogItem } from './CatalogItem';
 
 export function Catalog() {
   const [catalog, setCatalog] = useState<IProduct[]>([]);
+
+  const dispatch = useDispatch();
+
+  const handleEmptyCart = useCallback(() => {
+    dispatch(emptyCart())
+  }, [dispatch])
 
   useEffect(() => {
     api.get('products').then(response => {
@@ -16,9 +24,14 @@ export function Catalog() {
   
   return(
     <View style={styles.container}>
-      <Text style={styles.title}>Catalog</Text>
+      <Text style={styles.title}>Catálogo</Text>
 
       {catalog.map(product => <CatalogItem key={product.id}  product={product}/>)}
+
+      <Button 
+        title="Esvaziar carrinho"
+        onPress={handleEmptyCart}
+      />
     </View>
   );
 };

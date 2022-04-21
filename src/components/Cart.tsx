@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { IState } from '../store';
 import { ICartItem } from '../store/modules/cart/types';
+import { CartItem } from './CartItem';
 
 export function Cart() {
   const cart = useSelector<IState, ICartItem[]>(state => state.cart.items);
@@ -16,12 +17,7 @@ export function Cart() {
         <Text style={styles.title}>Subtotal</Text>
       </View>
       { cart.map(item => (
-        <View key={item.product.id} style={styles.lineContainer}>
-          <Text style={styles.lineText}>{ item.product.title }</Text>
-          <Text style={styles.lineText}>R$ { item.product.price }</Text>
-          <Text style={styles.lineText}>{ item.quantity }</Text>
-          <Text style={styles.lineText}>{ (item.product.price * item.quantity).toFixed(2) }</Text>
-        </View>
+        <CartItem item={item} key={item.product.id} />
       ))}
     </View>
   );
@@ -34,10 +30,22 @@ const styles = StyleSheet.create({
   },
   lineContainer: {
     width: '90%',
+    paddingHorizontal: 10,
     marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    position: 'relative',
+  },
+  removeFromCartButton: {
+    position: 'absolute',
+    left: -14,
+    height: 24,
+    width: 24,
+    borderRadius: 12,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 14,

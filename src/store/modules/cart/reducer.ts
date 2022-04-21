@@ -10,7 +10,7 @@ const INITIAL_STATE: ICartState = {
 const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
   return produce(state, draft => {
   switch(action.type) {
-    case ActionTypes.addProductToCardSuccess: {
+    case ActionTypes.addProductToCartSuccess: {
       const { product } = action.payload;
 
       const productInCartIndex = draft.items.findIndex(item => 
@@ -30,8 +30,22 @@ const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
       break;
     }
 
-    case ActionTypes.addProductToCardFailure: {
+    case ActionTypes.addProductToCartFailure: {
       draft.failedStockCheck.push(action.payload.productId);
+
+      break;
+    }
+
+    case ActionTypes.removeProductFromCart: {
+      draft.items = draft.items.filter(item => item.product.id !== action.payload.productId);
+      draft.failedStockCheck = draft.failedStockCheck.filter(productId => productId  !== action.payload.productId);
+
+      break;
+    }
+
+    case ActionTypes.emptyCart: {
+      draft.items = [];
+      draft.failedStockCheck = [];
 
       break;
     }

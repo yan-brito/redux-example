@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from '../store';
-import { addProductToCardRequest } from '../store/modules/cart/actions';
+import { addProductToCartRequest } from '../store/modules/cart/actions';
 
 import { IProduct } from '../store/modules/cart/types';
 
@@ -19,7 +19,7 @@ export function CatalogItem({ product }: CatalogItemProps) {
   });
 
   const handleAddProductToCart = useCallback(() => {
-    dispatch(addProductToCardRequest(product))
+    dispatch(addProductToCartRequest(product))
   }, [dispatch, product])
 
   return(

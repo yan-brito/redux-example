@@ -1,29 +1,44 @@
 import { ActionTypes, IProduct } from './types';
 
 
-export function addProductToCardRequest(product: IProduct) {
+export function addProductToCartRequest(product: IProduct) {
   return {
-    type: ActionTypes.addProductToCardRequest,
+    type: ActionTypes.addProductToCartRequest,
     payload: {
       product,
     }
   };
 }
 
-export function addProductToCardSuccess(product: IProduct) {
+export function addProductToCartSuccess(product: IProduct) {
   return {
-    type: ActionTypes.addProductToCardSuccess,
+    type: ActionTypes.addProductToCartSuccess,
     payload: {
       product,
     }
   };
 }
 
-export function addProductToCardFailure(productId: number) {
+export function addProductToCartFailure(productId: number) {
   return {
-    type: ActionTypes.addProductToCardFailure,
+    type: ActionTypes.addProductToCartFailure,
     payload: {
       productId,
     }
   };
+}
+
+export function removeProductFromCart(productId: number) {
+  return {
+    type: ActionTypes.removeProductFromCart,
+    payload: {
+      productId
+    }
+  }
+}
+
+export function emptyCart() {
+  return {
+    type: ActionTypes.emptyCart
+  }
 }
